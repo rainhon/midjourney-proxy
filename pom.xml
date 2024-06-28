@@ -15,6 +15,7 @@
     <version>2.6.3</version>
 
     <properties>
+        <jdkVersion>17</jdkVersion>
         <hutool.version>5.8.26</hutool.version>
         <org-json.version>20240303</org-json.version>
         <jda.version>5.0.0-beta.21</jda.version>
