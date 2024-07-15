@@ -67,8 +67,12 @@ public class Task extends DomainObject {
 	}
 
 	public String getImageUrl() {
-		String contents = this.readFileFromUrl(this.imageUrl);
-		return this.uploadToUrl("https://image.hbkj.vip/upload.php", contents, "files");
+		if (this.status == TaskStatus.SUCCESS) {
+			String contents = this.readFileFromUrl(this.imageUrl);
+			return this.uploadToUrl("https://image.hbkj.vip/upload.php", contents, "files");
+		} else {
+			return this.imageUrl;
+		}
 	}
 
 	private String readFileFromUrl(String fileUrl) throws IOException {
