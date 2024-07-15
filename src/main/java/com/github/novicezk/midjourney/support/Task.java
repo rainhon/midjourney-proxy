@@ -65,4 +65,62 @@ public class Task extends DomainObject {
 		this.failReason = reason;
 		this.progress = "";
 	}
+
+	public String getImageUrl() {
+		String contents = this.readFileFromUrl(this.imageUrl);
+		return this.uploadToUrl("https://image.hbkj.vip/upload.php", contents, "files");
+	}
+
+	private String readFileFromUrl(String fileUrl) throws IOException {
+        URL url = new URL(fileUrl);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            stringBuilder.append(line);
+            stringBuilder.append("\n");
+        }
+        reader.close();
+
+        return stringBuilder.toString();
+    }
+
+	   // 将内容上传到URL (使用multipart/form-data格式)
+    private String uploadToUrl(String uploadUrl, String fileContents, String fileName) throws IOException {
+        URL url = new URL(uploadUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setDoOutput(true);
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + "*****");
+
+        OutputStream outputStream = conn.getOutputStream();
+        PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8), true);
+
+        // 写入文件内容
+        writer.append("--*****\r\n")
+              .append("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileName + "\"\r\n")
+              .append("Content-Type: text/plain\r\n\r\n")
+              .append(fileContents)
+              .append("\r\n");
+
+        // 添加结束标识
+        writer.append("--*****--\r\n");
+        writer.flush();
+        writer.close();
+
+        // 获取服务器的响应
+        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        StringBuilder responseBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            responseBuilder.append(line);
+        }
+        reader.close();
+
+        conn.disconnect();
+
+        // 返回url
+        return responseBuilder.toString();
+    }
 }
