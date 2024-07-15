@@ -10,9 +10,11 @@ import lombok.EqualsAndHashCode;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serial;
 
+@Slf4j
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel("任务")
@@ -72,8 +74,10 @@ public class Task extends DomainObject {
 	public String getImageUrl() {
 		if (this.status == TaskStatus.SUCCESS) {
 			String contents = this.readFileFromUrl(this.imageUrl);
+			log.error('upload');
 			return this.uploadToUrl("https://image.hbkj.vip/upload.php", contents, "files");
 		} else {
+			log.error('no upload');
 			return this.imageUrl;
 		}
 	}
