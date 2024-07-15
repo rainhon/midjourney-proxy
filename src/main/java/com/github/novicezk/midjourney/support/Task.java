@@ -88,7 +88,7 @@ public class Task extends DomainObject {
 		}
 	}
 
-	private String readFileFromUrl(String fileUrl) {
+	private String readFileFromUrl(String fileUrl) throws Exception {
         URL url = new URL(fileUrl);
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
@@ -104,7 +104,7 @@ public class Task extends DomainObject {
     }
 
 	   // 将内容上传到URL (使用multipart/form-data格式)
-    private String uploadToUrl(String uploadUrl, String fileContents, String fileName) {
+    private String uploadToUrl(String uploadUrl, String fileContents, String fileName) throws Exception {
         URL url = new URL(uploadUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
