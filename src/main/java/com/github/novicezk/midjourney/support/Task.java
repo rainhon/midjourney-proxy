@@ -73,9 +73,15 @@ public class Task extends DomainObject {
 
 	public String getImageUrl() {
 		if (this.status == TaskStatus.SUCCESS) {
-			String contents = this.readFileFromUrl(this.imageUrl);
-			log.error("upload");
-			return this.uploadToUrl("https://image.hbkj.vip/upload.php", contents, "files");
+			try {
+				String contents = this.readFileFromUrl(this.imageUrl);
+				log.error("upload");
+				return this.uploadToUrl("https://image.hbkj.vip/upload.php", contents, "files");
+			} catch (Exception e) {
+				log.error("upload error" + e.getMessage());
+				return this.imageUrl;
+			}
+
 		} else {
 			log.error("no upload");
 			return this.imageUrl;
