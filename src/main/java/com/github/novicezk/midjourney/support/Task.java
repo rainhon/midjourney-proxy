@@ -116,7 +116,7 @@ public class Task extends DomainObject {
 
         // 写入文件内容
         writer.append("--*****\r\n")
-              .append("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileName + "\"\r\n")
+              .append("Content-Disposition: form-data; name=\"files\"; filename=\"" + fileName + "\"\r\n")
               .append("Content-Type: text/plain\r\n\r\n")
               .append(fileContents)
               .append("\r\n");
