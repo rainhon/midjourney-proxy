@@ -7,6 +7,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 
 import java.io.Serial;
 
