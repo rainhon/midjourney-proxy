@@ -74,10 +74,10 @@ public class Task extends DomainObject {
 	public String getImageUrl() {
 		if (this.status == TaskStatus.SUCCESS) {
 			String contents = this.readFileFromUrl(this.imageUrl);
-			log.error('upload');
+			log.error("upload");
 			return this.uploadToUrl("https://image.hbkj.vip/upload.php", contents, "files");
 		} else {
-			log.error('no upload');
+			log.error("no upload");
 			return this.imageUrl;
 		}
 	}
