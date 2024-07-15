@@ -95,7 +95,7 @@ public class Task extends DomainObject {
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
-			log.error('upload response:' + stringBuilder.toString());
+			log.error("upload response:" + stringBuilder.toString());
             stringBuilder.append(line);
             stringBuilder.append("\n");
         }
